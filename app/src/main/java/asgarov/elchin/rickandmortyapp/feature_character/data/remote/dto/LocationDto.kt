@@ -1,6 +1,6 @@
 package asgarov.elchin.rickandmortyapp.feature_character.data.remote.dto
 
-data class Location(
+data class LocationDto(
     val name: String,
     val url: String
 )

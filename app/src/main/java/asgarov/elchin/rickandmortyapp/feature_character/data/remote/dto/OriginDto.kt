@@ -1,6 +1,6 @@
 package asgarov.elchin.rickandmortyapp.feature_character.data.remote.dto
 
-data class Origin(
+data class OriginDto(
     val name: String,
     val url: String
 )
