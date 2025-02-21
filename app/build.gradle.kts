@@ -95,4 +95,12 @@ dependencies {
     // KotlinX Serialization (For Type-Safe Navigation)
     //noinspection UseTomlInstead
     implementation(libs.kotlinx.serialization.json)
+
+    // Core Paging 3 Library (for network pagination)
+    implementation(libs.androidx.paging.runtime.ktx)
+
+    // Paging 3 Support for Jetpack Compose
+    implementation(libs.androidx.paging.compose)
+
+
 }
