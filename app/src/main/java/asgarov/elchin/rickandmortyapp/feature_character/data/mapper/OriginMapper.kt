@@ -6,6 +6,5 @@ import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Origin
 fun OriginDto.toOrigin(): Origin {
     return Origin(
         name = name,
-        url = url.substringAfter("/").toInt()
-    )
+        url = url.substringAfterLast("/").toIntOrNull() ?: "")
 }

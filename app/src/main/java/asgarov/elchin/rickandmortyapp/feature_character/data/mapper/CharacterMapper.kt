@@ -13,7 +13,7 @@ fun CharacterDto.toCharacter():Character{
         origin = origin.toOrigin(),
         location = location.toLocation(),
         image = image,
-        episodeNumbers = episode.map { it.substringAfter("/").toInt() }
+        episodeNumbers = episode.map { it.substringAfterLast("/").toIntOrNull()?: "" }
 
     )
 }

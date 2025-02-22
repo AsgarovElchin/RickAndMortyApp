@@ -6,6 +6,6 @@ import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Location
 fun LocationDto.toLocation():Location{
     return Location(
         name = name,
-        url = url.substringAfter("/").toInt()
+        url = url.substringAfterLast("/").toIntOrNull() ?: ""
     )
 }

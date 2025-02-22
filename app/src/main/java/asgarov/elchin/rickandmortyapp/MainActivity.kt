@@ -7,12 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.CharacterScreen
 import asgarov.elchin.rickandmortyapp.ui.theme.RickAndMortyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.Serializable
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -22,8 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             RickAndMortyAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    AppNavigation(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -33,17 +35,25 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RickAndMortyAppTheme {
-        Greeting("Android")
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = CharacterRoute
+    ) {
+        composable<CharacterRoute> {
+            CharacterScreen(navController)
+        }
     }
 }
+
+
+
+@Serializable
+object CharacterRoute
+
+
+
+
