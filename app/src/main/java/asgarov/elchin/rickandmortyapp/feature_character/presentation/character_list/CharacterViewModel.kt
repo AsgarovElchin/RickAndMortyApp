@@ -18,5 +18,4 @@ class CharacterViewModel @Inject constructor(
 
     val charactersFlow: Flow<PagingData<Character>> =
         repository.getAllCharacters().cachedIn(viewModelScope)
-
 }

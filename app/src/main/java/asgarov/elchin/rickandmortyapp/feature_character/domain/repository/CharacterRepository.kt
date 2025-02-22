@@ -7,5 +7,4 @@ import kotlinx.coroutines.flow.Flow
 interface CharacterRepository {
 
     fun getAllCharacters(): Flow<PagingData<Character>>
-
 }
