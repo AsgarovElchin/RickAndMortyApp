@@ -27,6 +27,7 @@ fun CharacterScreen(navController: NavController) {
     val characters = viewModel.charactersFlow.collectAsLazyPagingItems()
 
 
+
     var showAdvancedFilters by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -60,6 +61,7 @@ fun CharacterScreen(navController: NavController) {
             }
         }
     }
+
 
     if (showAdvancedFilters) {
         AdvancedFilterDialog(
