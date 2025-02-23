@@ -9,6 +9,7 @@ import asgarov.elchin.rickandmortyapp.feature_character.data.paging.CharacterPag
 import asgarov.elchin.rickandmortyapp.feature_character.data.remote.CharacterApi
 import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Character
 import asgarov.elchin.rickandmortyapp.feature_character.domain.repository.CharacterRepository
+import asgarov.elchin.rickandmortyapp.feature_character.domain.use_case.CharacterFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -21,14 +22,14 @@ class CharacterRepositoryImpl @Inject constructor(
     private val api: CharacterApi
 ): CharacterRepository {
 
-    override fun getAllCharacters(): Flow<PagingData<Character>> {
+    override fun getAllCharacters(filter: CharacterFilter): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
                 prefetchDistance = 2,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = {CharacterPagingSource(api)}
+            pagingSourceFactory = {CharacterPagingSource(api,filter)}
         ).flow
 
     }
