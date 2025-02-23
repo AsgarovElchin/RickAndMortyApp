@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.AdvancedFilterDialog
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterBar
+import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterDialog
 
 @Composable
 fun CharacterScreen(navController: NavController) {
@@ -30,13 +30,26 @@ fun CharacterScreen(navController: NavController) {
 
     var showAdvancedFilters by remember { mutableStateOf(false) }
 
+    val filterOptions = mapOf(
+        "Status" to listOf("Alive", "Dead", "Unknown"),
+        "Species" to listOf("Alien", "Animal", "Human", "Humanoid", "Mythological Creature", "Poopybutthole", "Robot", "Unknown"),
+        "Gender" to listOf("Female", "Genderless", "Male", "Unknown")
+    )
+
+    val currentFilterValues = mapOf(
+        "Status" to filter.status.orEmpty(),
+        "Species" to filter.species.orEmpty(),
+        "Gender" to filter.gender.orEmpty()
+    )
+
     Column(modifier = Modifier.fillMaxSize()) {
         FilterBar(
-            currentFilter = filter,
-            onNameFilterChange = { newName ->
+            searchQuery = filter.name.orEmpty(),
+            labelText = "Character Name",
+            onSearchQueryChange = { newName ->
                 viewModel.updateFilter(filter.copy(name = newName))
             },
-            onShowAdvancedFilters = { showAdvancedFilters = true }
+            onFilterClick = { showAdvancedFilters = true }
         )
 
         Box(
@@ -64,11 +77,19 @@ fun CharacterScreen(navController: NavController) {
 
 
     if (showAdvancedFilters) {
-        AdvancedFilterDialog(
-            currentFilter = filter,
+        FilterDialog(
+            title = "Advanced Filters",
+            filterOptions = filterOptions,
+            currentFilterValues = currentFilterValues,
             onDismiss = { showAdvancedFilters = false },
             onApply = { newFilter ->
-                viewModel.updateFilter(newFilter)
+                viewModel.updateFilter(
+                    filter.copy(
+                        status = newFilter["Status"],
+                        species = newFilter["Species"],
+                        gender = newFilter["Gender"]
+                    )
+                )
                 showAdvancedFilters = false
             }
         )

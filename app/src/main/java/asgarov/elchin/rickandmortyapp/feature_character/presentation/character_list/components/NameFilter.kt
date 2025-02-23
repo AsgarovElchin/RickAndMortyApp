@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import asgarov.elchin.rickandmortyapp.feature_character.domain.use_case.CharacterFilter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,11 +17,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FilterBar(
-    currentFilter: CharacterFilter,
-    onNameFilterChange: (String?) -> Unit,
-    onShowAdvancedFilters: () -> Unit
+    searchQuery: String,
+    labelText: String = "Search",
+    onSearchQueryChange: (String?) -> Unit,
+    onFilterClick: (() -> Unit)? = null,
+    debounceTimeMillis: Long = 700
 ) {
-    var name by remember { mutableStateOf(currentFilter.name.orEmpty()) }
+    var query by remember { mutableStateOf(searchQuery) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
 
@@ -31,33 +33,45 @@ fun FilterBar(
             .padding(8.dp)
     ) {
         OutlinedTextField(
-            value = name,
+            value = query,
             onValueChange = { newText ->
-                name = newText
+                query = newText
                 debounceJob?.cancel()
-
-                debounceJob = coroutineScope.launch {
-                    delay(700)
-                    onNameFilterChange(if (name.isBlank()) null else name)
+                debounceJob = debounce(coroutineScope, debounceTimeMillis) {
+                    onSearchQueryChange(newText.takeIf { it.isNotBlank() })
                 }
             },
-            label = { Text("Name") },
+            label = { Text(labelText) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             maxLines = 1
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        if (onFilterClick != null) {
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = {
-                debounceJob?.cancel()
-                onNameFilterChange(if (name.isBlank()) null else name)
-                onShowAdvancedFilters()
-            },
-            modifier = Modifier.align(Alignment.End)
-        ) {
-            Text("Filter")
+            Button(
+                onClick = {
+                    debounceJob?.cancel()
+                    onSearchQueryChange(query.takeIf { it.isNotBlank() })
+                    onFilterClick()
+                },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Filter")
+            }
         }
+    }
+}
+
+
+private fun debounce(
+    scope: CoroutineScope,
+    delayMillis: Long,
+    action: () -> Unit
+): Job {
+    return scope.launch {
+        delay(delayMillis)
+        action()
     }
 }

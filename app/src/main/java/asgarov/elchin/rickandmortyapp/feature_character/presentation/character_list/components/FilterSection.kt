@@ -10,7 +10,12 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun FilterSection(title: String, options: List<String>, selectedValue: String, onSelectionChange: (String) -> Unit) {
+fun FilterSection(
+    title: String,
+    options: List<String>,
+    selectedValue: String,
+    onSelectionChange: (String) -> Unit
+) {
     Text(title, style = MaterialTheme.typography.labelLarge)
     FlowRow(
         modifier = Modifier.fillMaxWidth(),

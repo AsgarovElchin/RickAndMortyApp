@@ -16,49 +16,42 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import asgarov.elchin.rickandmortyapp.feature_character.domain.use_case.CharacterFilter
+
 
 @Composable
-fun AdvancedFilterDialog(
-    currentFilter: CharacterFilter,
+fun FilterDialog(
+    title: String,
+    filterOptions: Map<String, List<String>>,
+    currentFilterValues: Map<String, String>,
     onDismiss: () -> Unit,
-    onApply: (CharacterFilter) -> Unit
+    onApply: (Map<String, String?>) -> Unit
 ) {
-    var selectedStatus by remember { mutableStateOf(currentFilter.status.orEmpty()) }
-    var selectedSpecies by remember { mutableStateOf(currentFilter.species.orEmpty()) }
-    var selectedGender by remember { mutableStateOf(currentFilter.gender.orEmpty()) }
+    var selectedValues by remember { mutableStateOf(currentFilterValues) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Advanced Filters", style = MaterialTheme.typography.titleMedium) },
+        title = { Text(title, style = MaterialTheme.typography.titleMedium) },
         text = {
             Column(modifier = Modifier.fillMaxWidth()) {
-                FilterSection("Status", listOf("Alive", "Dead", "Unknown"), selectedStatus) {
-                    selectedStatus = it
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                FilterSection("Species", listOf("Alien", "Animal", "Human", "Humanoid", "Mythological Creature", "Poopybutthole", "Robot", "Unknown"), selectedSpecies) {
-                    selectedSpecies = it
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                FilterSection("Gender", listOf("Female", "Genderless", "Male", "Unknown"), selectedGender) {
-                    selectedGender = it
+                filterOptions.forEach { (category, options) ->
+                    FilterSection(category, options, selectedValues[category].orEmpty()) {
+                        selectedValues = selectedValues.toMutableMap().apply { put(category, it) }
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         },
         confirmButton = {
             Button(
                 onClick = {
-                    onApply(
-                        currentFilter.copy(
-                            status = selectedStatus.ifEmpty { null },
-                            species = selectedSpecies.ifEmpty { null },
-                            gender = selectedGender.ifEmpty { null }
-                        )
-                    )
+                    onApply(selectedValues.mapValues { it.value.ifEmpty { null } })
                 }
-            ) { Text("Apply") }
+            ) {
+                Text("Apply")
+            }
         },
-        dismissButton = { OutlinedButton(onClick = onDismiss) { Text("Cancel") } }
+        dismissButton = {
+            OutlinedButton(onClick = onDismiss) { Text("Cancel") }
+        }
     )
 }
