@@ -23,6 +23,10 @@ class CharacterDetailViewModel @Inject constructor(
 
     val state: State<CharacterDetailState> = _state
 
+
+    private val _characterDetailState = mutableStateOf(CharactersDetailState())
+
+    val characterDetailState: State<CharactersDetailState> = _characterDetailState
     init {
         savedStateHandle.get<Int>("characterId")?.let { characterId->
             getCharacterDetailById(characterId)
@@ -30,9 +34,8 @@ class CharacterDetailViewModel @Inject constructor(
     }
 
 
-
     private fun getCharacterDetailById(id:Int){
-        repository.getCharacterById(id).onEach {result->
+        repository. getCharacterById(id).onEach {result->
             when(result){
                 is Resource.Success->{
                     _state.value = CharacterDetailState(characterDetail = result.data)
@@ -48,4 +51,5 @@ class CharacterDetailViewModel @Inject constructor(
 
         }.launchIn(viewModelScope)
     }
+
 }

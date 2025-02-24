@@ -19,4 +19,8 @@ interface CharacterApi {
 
     @GET("character/{id}")
     suspend fun getCharacterById(@Path("id")id:Int):CharacterDto
+
+    @GET("character/{ids}")
+    suspend fun getCharactersByIds(@Path("ids")ids:String):List<CharacterDto>
+
 }

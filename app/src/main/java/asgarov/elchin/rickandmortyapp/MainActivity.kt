@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.CharacterScreen
+import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_detail.EpisodeDetailScreen
 import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_list.EpisodeScreen
 import asgarov.elchin.rickandmortyapp.ui.theme.RickAndMortyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,6 +51,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable<EpisodeRoute> {
             EpisodeScreen(navController)
         }
+        composable<EpisodeDetailRoute> {
+            EpisodeDetailScreen(navController)
+        }
     }
 }
 
@@ -60,6 +64,9 @@ object CharacterRoute
 
 @Serializable
 object EpisodeRoute
+
+@Serializable
+data class EpisodeDetailRoute(val episodeId:Int)
 
 
 

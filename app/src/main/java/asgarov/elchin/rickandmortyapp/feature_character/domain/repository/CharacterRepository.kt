@@ -11,4 +11,6 @@ interface CharacterRepository {
     fun getAllCharacters(filter: CharacterFilter): Flow<PagingData<Character>>
 
     fun getCharacterById(id: Int): Flow<Resource<Character>>
+
+    fun getCharactersByIds(ids:String):Flow<Resource<List<Character>>>
 }

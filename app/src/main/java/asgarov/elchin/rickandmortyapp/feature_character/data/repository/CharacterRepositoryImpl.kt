@@ -48,4 +48,19 @@ class CharacterRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun getCharactersByIds(ids: String): Flow<Resource<List<Character>>> {
+        return flow{
+            try {
+                emit(Resource.Loading())
+                val charactersDetails = api.getCharactersByIds(ids).map { it.toCharacter() }
+                emit(Resource.Success(charactersDetails))
+
+            }catch (e:HttpException){
+                emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            }catch (e:IOException){
+                emit(Resource.Error(e.localizedMessage ?: "Couldn't reach server. Check your internet connection"))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

@@ -6,7 +6,7 @@ import asgarov.elchin.rickandmortyapp.feature_episode.domain.model.Episode
 fun EpisodeDto.toEpisode():Episode{
     return Episode(
         air_date = air_date,
-        characters = characters,
+        characters = characters.map { it.substringAfterLast("/").toIntOrNull()?: "" },
         episode = episode,
         id = id,
         name = name
