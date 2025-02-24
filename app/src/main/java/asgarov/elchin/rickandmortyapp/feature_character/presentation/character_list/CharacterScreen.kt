@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import asgarov.elchin.rickandmortyapp.CharacterDetailRoute
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterBar
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterDialog
 
@@ -69,7 +70,9 @@ fun CharacterScreen(navController: NavController) {
                     )
                 }
                 else -> {
-                    CharacterContent(characters = characters, onItemClick = { /* Handle click */ })
+                    CharacterContent(characters = characters, onItemClick = {character->
+                        navController.navigate(CharacterDetailRoute(character.id))
+                    })
                 }
             }
         }

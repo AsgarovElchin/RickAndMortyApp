@@ -4,7 +4,6 @@ package asgarov.elchin.rickandmortyapp.feature_episode.data.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Character
 import asgarov.elchin.rickandmortyapp.feature_episode.data.mapper.toEpisode
 import asgarov.elchin.rickandmortyapp.feature_episode.data.remote.EpisodeApi
 import asgarov.elchin.rickandmortyapp.feature_episode.domain.model.Episode
@@ -14,7 +13,7 @@ import java.io.IOException
 
 class EpisodePagingSource(
     private val api: EpisodeApi,
-    private val filter: EpisodeFilter
+    private val filter: EpisodeFilter?
 
 ): PagingSource<Int, Episode>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
@@ -22,7 +21,7 @@ class EpisodePagingSource(
         Log.d("CharacterPagingSource", "Loading page: $page")
         return try {
             val response = api.getAllEpisodes(page = page,
-                name = filter.name
+                name = filter?.name
             )
             Log.d("CharacterPagingSource", "API response for page $page received with ${response.results.size} items, next: ${response.info.next}")
 

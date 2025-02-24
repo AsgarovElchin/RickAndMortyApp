@@ -37,8 +37,23 @@ class EpisodeRepositoryImpl @Inject constructor(
         return flow{
             try {
                 emit(Resource.Loading())
-                val characterDetails = api.getEpisodeById(id).toEpisode()
-                emit(Resource.Success(characterDetails))
+                val episodeDetails = api.getEpisodeById(id).toEpisode()
+                emit(Resource.Success(episodeDetails))
+
+            }catch (e: HttpException){
+                emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            }catch (e: IOException){
+                emit(Resource.Error(e.localizedMessage ?: "Couldn't reach server. Check your internet connection"))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getEpisodesByIds(ids: String): Flow<Resource<List<Episode>>> {
+        return flow{
+            try {
+                emit(Resource.Loading())
+                val episodesDetails = api.getEpisodesByIds(ids).map { it.toEpisode() }
+                emit(Resource.Success(episodesDetails))
 
             }catch (e: HttpException){
                 emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))

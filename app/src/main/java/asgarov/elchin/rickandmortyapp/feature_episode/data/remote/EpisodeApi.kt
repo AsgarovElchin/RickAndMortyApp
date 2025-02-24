@@ -18,6 +18,9 @@ interface EpisodeApi {
     @GET("episode/{id}")
     suspend fun getEpisodeById(@Path("id")id:Int):EpisodeDto
 
+    @GET("episode/{ids}")
+    suspend fun getEpisodesByIds(@Path("ids")ids:String):List<EpisodeDto>
+
 
 
 }

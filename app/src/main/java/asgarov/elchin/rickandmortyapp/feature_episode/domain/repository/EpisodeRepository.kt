@@ -12,5 +12,7 @@ interface EpisodeRepository {
 
     fun getEpisodeById(id: Int): Flow<Resource<Episode>>
 
+    fun getEpisodesByIds(ids:String):Flow<Resource<List<Episode>>>
+
 
 }

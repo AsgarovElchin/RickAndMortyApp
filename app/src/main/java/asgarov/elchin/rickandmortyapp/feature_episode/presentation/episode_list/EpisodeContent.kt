@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.CharacterItem
 import asgarov.elchin.rickandmortyapp.feature_episode.domain.model.Episode
 import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_list.components.EpisodeItem
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -79,3 +76,4 @@ fun EpisodeContent(
     }
 
 }
+
