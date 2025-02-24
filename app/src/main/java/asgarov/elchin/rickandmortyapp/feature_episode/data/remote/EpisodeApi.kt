@@ -12,8 +12,7 @@ interface EpisodeApi {
     @GET("episode")
     suspend fun getAllEpisodes(
         @Query("page") page: Int,
-        @Query("name") name: String? = null,
-        @Query("episode") episode: String? = null
+        @Query("name") name: String? = null
     ):EpisodeListDto
 
     @GET("episode/{id}")

@@ -22,8 +22,7 @@ class EpisodePagingSource(
         Log.d("CharacterPagingSource", "Loading page: $page")
         return try {
             val response = api.getAllEpisodes(page = page,
-                name = filter.name,
-                episode = filter.episodeCode
+                name = filter.name
             )
             Log.d("CharacterPagingSource", "API response for page $page received with ${response.results.size} items, next: ${response.info.next}")
 
