@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import asgarov.elchin.rickandmortyapp.CharacterDetailRoute
 import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Character
 
 @Composable
@@ -19,7 +21,7 @@ fun CharacterListDialog(
     title: String,
     characters:List<Character>,
     onDismiss: () -> Unit,
-    onCharacterClick: (Character) -> Unit
+    navController: NavController
 ){
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -34,7 +36,10 @@ fun CharacterListDialog(
                 modifier = Modifier.heightIn(max = 400.dp)
             ) {
                 items(characters) { character ->
-                    DialogItem(character = character, onItemClick = onCharacterClick)
+                    DialogItem(character = character){
+                        selectedCharacter ->
+                        navController.navigate(CharacterDetailRoute(selectedCharacter.id))
+                    }
                 }
             }
         },

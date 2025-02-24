@@ -46,7 +46,8 @@ class EpisodeDetailViewModel @Inject constructor(
 
                     episodeState.value.episodeDetail?.let {
                         if(it.characters.isNotEmpty()){
-                            getCharactersDetailByIds(it.characters)
+                            val idsString = it.characters.toString()
+                            getCharactersDetailByIds(idsString)
                         }
                     }
                 }
@@ -62,9 +63,8 @@ class EpisodeDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun getCharactersDetailByIds(characterIds:List<Any>){
-        val idsString = characterIds.joinToString(",") // Format: "1,2,3"
-        characterRepository.getCharactersByIds(idsString).onEach {result->
+    private fun getCharactersDetailByIds(characterIds:String){
+        characterRepository.getCharactersByIds(characterIds).onEach {result->
             when(result){
                 is Resource.Success->{
                     _charactersDetailState.value = CharactersDetailState(charactersDetail = result.data)

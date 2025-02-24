@@ -56,9 +56,7 @@ fun EpisodeDetailScreen(
                 showDialog.value = false
                 navController.popBackStack()
             },
-            onCharacterClick = { character ->
-
-            }
+            navController
         )
     }
 
