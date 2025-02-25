@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import asgarov.elchin.rickandmortyapp.core.utils.Resource
-import asgarov.elchin.rickandmortyapp.feature_character.data.mapper.toCharacter
 import asgarov.elchin.rickandmortyapp.feature_episode.data.mapper.toEpisode
 import asgarov.elchin.rickandmortyapp.feature_episode.data.paging.EpisodePagingSource
 import asgarov.elchin.rickandmortyapp.feature_episode.data.remote.EpisodeApi

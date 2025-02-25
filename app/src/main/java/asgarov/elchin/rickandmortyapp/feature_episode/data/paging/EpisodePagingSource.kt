@@ -18,18 +18,18 @@ class EpisodePagingSource(
 ): PagingSource<Int, Episode>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
         val page = params.key ?: 1
-        Log.d("CharacterPagingSource", "Loading page: $page")
+        Log.d("EpisodePagingSource", "Loading page: $page")
         return try {
             val response = api.getAllEpisodes(page = page,
                 name = filter?.name
             )
-            Log.d("CharacterPagingSource", "API response for page $page received with ${response.results.size} items, next: ${response.info.next}")
+            Log.d("EpisodePagingSource", "API response for page $page received with ${response.results.size} items, next: ${response.info.next}")
 
             val episodes = response.results.map { it.toEpisode() }
             val prevKey = if (page == 1) null else page - 1
             val nextKey = if (response.info.next == null) null else page + 1
 
-            Log.d("CharacterPagingSource", "Returning page: $page, prevKey: $prevKey, nextKey: $nextKey")
+            Log.d("EpisodePagingSource", "Returning page: $page, prevKey: $prevKey, nextKey: $nextKey")
             LoadResult.Page(
                 data = episodes,
                 prevKey = prevKey,

@@ -1,6 +1,6 @@
 package asgarov.elchin.rickandmortyapp.feature_character.presentation.character_detail
 
-import android.util.Log
+
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle

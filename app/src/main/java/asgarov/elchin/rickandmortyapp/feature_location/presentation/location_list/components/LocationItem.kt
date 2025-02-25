@@ -1,4 +1,4 @@
-package asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_list.components
+package asgarov.elchin.rickandmortyapp.feature_location.presentation.location_list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,36 +18,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import asgarov.elchin.rickandmortyapp.feature_episode.domain.model.Episode
+import asgarov.elchin.rickandmortyapp.feature_location.domain.model.Location
 
 @Composable
-fun EpisodeItem(
-    episode: Episode,
-    onItemClick: (Episode) -> Unit
+fun LocationItem(
+    location: Location,
+    onItemClick: (Location) -> Unit
 ){
     Card(
         modifier = Modifier.fillMaxWidth().height(120.dp)
-            .clickable { onItemClick(episode) }
+            .clickable { onItemClick(location) }
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(6.dp)
     ){
         Row(modifier = Modifier.fillMaxSize().padding(12.dp), verticalAlignment = Alignment.CenterVertically){
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = episode.episode,
+                Text(text = location.name,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary)
-                Text(text = episode.name,
+                Text(text = location.type,
                     modifier = Modifier.width(180.dp),
                     style = MaterialTheme.typography.bodyMedium,
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            Text(text = episode.air_date,
+            Text(text = location.dimension,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
 
     }
-}
 
+}

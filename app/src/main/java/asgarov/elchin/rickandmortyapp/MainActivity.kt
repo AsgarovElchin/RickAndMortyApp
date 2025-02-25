@@ -16,6 +16,8 @@ import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_d
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.CharacterScreen
 import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_detail.EpisodeDetailScreen
 import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_list.EpisodeScreen
+import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_detail.LocationDetailScreen
+import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_list.components.LocationScreen
 import asgarov.elchin.rickandmortyapp.ui.theme.RickAndMortyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
@@ -44,7 +46,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = CharacterRoute
+        startDestination = LocationRoute
     ) {
         composable<CharacterRoute> {
             CharacterScreen(navController)
@@ -57,6 +59,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable<EpisodeDetailRoute> {
             EpisodeDetailScreen(navController)
+        }
+        composable<LocationRoute> {
+            LocationScreen(navController)
+        }
+        composable<LocationDetailRoute> {
+            LocationDetailScreen(navController)
         }
     }
 }
@@ -74,6 +82,12 @@ object EpisodeRoute
 
 @Serializable
 data class EpisodeDetailRoute(val episodeId:Int)
+
+@Serializable
+object LocationRoute
+
+@Serializable
+data class LocationDetailRoute(val locationId:Int)
 
 
 

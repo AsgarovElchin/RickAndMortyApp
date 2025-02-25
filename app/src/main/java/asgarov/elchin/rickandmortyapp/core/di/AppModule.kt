@@ -7,6 +7,9 @@ import asgarov.elchin.rickandmortyapp.feature_character.domain.repository.Charac
 import asgarov.elchin.rickandmortyapp.feature_episode.data.remote.EpisodeApi
 import asgarov.elchin.rickandmortyapp.feature_episode.data.repository.EpisodeRepositoryImpl
 import asgarov.elchin.rickandmortyapp.feature_episode.domain.repository.EpisodeRepository
+import asgarov.elchin.rickandmortyapp.feature_location.data.remote.LocationApi
+import asgarov.elchin.rickandmortyapp.feature_location.data.repository.LocationRepositoryImpl
+import asgarov.elchin.rickandmortyapp.feature_location.domain.repository.LocationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,5 +54,16 @@ object AppModule {
     @Singleton
     fun provideEpisodeRepository(api: EpisodeApi): EpisodeRepository {
         return EpisodeRepositoryImpl(api)
+    }
+    @Provides
+    @Singleton
+    fun provideLocationApi(retrofit: Retrofit): LocationApi {
+        return retrofit.create(LocationApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepository(api: LocationApi): LocationRepository {
+        return LocationRepositoryImpl(api)
     }
 }
