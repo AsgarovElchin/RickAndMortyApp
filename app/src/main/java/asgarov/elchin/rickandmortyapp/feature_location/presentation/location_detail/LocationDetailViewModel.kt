@@ -1,4 +1,4 @@
-package asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_detail
+package asgarov.elchin.rickandmortyapp.feature_location.presentation.location_detail
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -8,53 +8,53 @@ import androidx.lifecycle.viewModelScope
 import asgarov.elchin.rickandmortyapp.core.utils.Resource
 import asgarov.elchin.rickandmortyapp.feature_character.domain.repository.CharacterRepository
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_detail.CharactersDetailState
-import asgarov.elchin.rickandmortyapp.feature_episode.domain.repository.EpisodeRepository
+import asgarov.elchin.rickandmortyapp.feature_location.domain.repository.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class EpisodeDetailViewModel @Inject constructor(
-    private val episodeRepository: EpisodeRepository,
+class LocationDetailViewModel @Inject constructor(
+    private val locationRepository: LocationRepository,
     private val characterRepository: CharacterRepository,
     savedStateHandle: SavedStateHandle
 ):ViewModel() {
 
-    private val _episodeState = mutableStateOf(EpisodeDetailState())
+    private val _locationState = mutableStateOf(LocationDetailState())
 
-    val episodeState: State<EpisodeDetailState> = _episodeState
+    val locationState: State<LocationDetailState> = _locationState
 
     private val _charactersDetailState = mutableStateOf(CharactersDetailState())
 
     val charactersDetailState: State<CharactersDetailState> = _charactersDetailState
 
     init {
-        savedStateHandle.get<Int>("episodeId")?.let { episodeId->
-            getEpisodeDetailById(episodeId)
+        savedStateHandle.get<Int>("locationId")?.let { locationId->
+            getLocationDetailById(locationId)
         }
     }
 
 
 
-    private fun getEpisodeDetailById(id:Int){
-        episodeRepository.getEpisodeById(id).onEach {result->
+    private fun getLocationDetailById(id:Int){
+        locationRepository.getLocationById(id).onEach {result->
             when(result){
                 is Resource.Success->{
-                    _episodeState.value = EpisodeDetailState(episodeDetail = result.data)
+                    _locationState.value = LocationDetailState(locationDetail = result.data)
 
-                    episodeState.value.episodeDetail?.let {
-                        if(it.characters.isNotEmpty()){
-                            val idsString = it.characters.toString()
+                    locationState.value.locationDetail?.let {
+                        if(it.residents.isNotEmpty()){
+                            val idsString = it.residents.toString()
                             getCharactersDetailByIds(idsString)
                         }
                     }
                 }
                 is Resource.Error->{
-                    _episodeState.value = EpisodeDetailState(error = result.message?: "An unexpected error occurred")
+                    _locationState.value = LocationDetailState(error = result.message?: "An unexpected error occurred")
                 }
                 is Resource.Loading->{
-                    _episodeState.value = EpisodeDetailState(isLoading = true)
+                    _locationState.value = LocationDetailState(isLoading = true)
 
                 }
             }
@@ -80,4 +80,5 @@ class EpisodeDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
 
     }
+
 }
