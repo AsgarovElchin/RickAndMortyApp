@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import asgarov.elchin.rickandmortyapp.LocationDetailRoute
+import asgarov.elchin.rickandmortyapp.core.navigation.AppRoute
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterBar
 import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_list.LocationContent
 import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_list.LocationViewModel
@@ -52,7 +52,7 @@ fun LocationScreen(navController: NavController){
                 }
                 else -> {
                     LocationContent(locations = locations, onItemClick = { location->
-                        navController.navigate(LocationDetailRoute(location.id))
+                        navController.navigate(AppRoute.LocationDetailRoute(location.id))
                     })
                 }
             }

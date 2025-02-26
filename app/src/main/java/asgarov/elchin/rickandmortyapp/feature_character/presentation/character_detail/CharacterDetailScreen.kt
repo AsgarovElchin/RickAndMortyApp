@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import asgarov.elchin.rickandmortyapp.EpisodeDetailRoute
+import asgarov.elchin.rickandmortyapp.core.navigation.AppRoute
+
 
 @Composable
 fun CharacterDetailScreen(
@@ -68,7 +69,7 @@ fun CharacterDetailScreen(
                         AppearedEpisodes(
                             episodes = episodes,
                             onItemClick = { episode ->
-                                navController.navigate(EpisodeDetailRoute(episode.id))
+                                navController.navigate(AppRoute.EpisodeDetailRoute(episode.id))
                             }
                         )
                     }

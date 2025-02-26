@@ -7,20 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_detail.CharacterDetailScreen
-import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.CharacterScreen
-import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_detail.EpisodeDetailScreen
-import asgarov.elchin.rickandmortyapp.feature_episode.presentation.episode_list.EpisodeScreen
-import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_detail.LocationDetailScreen
-import asgarov.elchin.rickandmortyapp.feature_location.presentation.location_list.components.LocationScreen
+import asgarov.elchin.rickandmortyapp.core.navigation.AppNavigation
+import asgarov.elchin.rickandmortyapp.core.navigation.BottomNavBar
 import asgarov.elchin.rickandmortyapp.ui.theme.RickAndMortyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.serialization.Serializable
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,8 +22,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RickAndMortyAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val navController = rememberNavController()
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                    bottomBar = { BottomNavBar(navController) }) { innerPadding ->
                     AppNavigation(
+                        navController = navController,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -39,55 +35,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun AppNavigation(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = LocationRoute
-    ) {
-        composable<CharacterRoute> {
-            CharacterScreen(navController)
-        }
-        composable<CharacterDetailRoute>{
-            CharacterDetailScreen(navController)
-        }
-        composable<EpisodeRoute> {
-            EpisodeScreen(navController)
-        }
-        composable<EpisodeDetailRoute> {
-            EpisodeDetailScreen(navController)
-        }
-        composable<LocationRoute> {
-            LocationScreen(navController)
-        }
-        composable<LocationDetailRoute> {
-            LocationDetailScreen(navController)
-        }
-    }
-}
 
 
 
-@Serializable
-object CharacterRoute
-
-@Serializable
-data class CharacterDetailRoute(val characterId:Int)
-
-@Serializable
-object EpisodeRoute
-
-@Serializable
-data class EpisodeDetailRoute(val episodeId:Int)
-
-@Serializable
-object LocationRoute
-
-@Serializable
-data class LocationDetailRoute(val locationId:Int)
 
 
 

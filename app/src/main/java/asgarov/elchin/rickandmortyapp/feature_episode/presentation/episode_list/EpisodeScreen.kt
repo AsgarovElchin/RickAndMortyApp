@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import asgarov.elchin.rickandmortyapp.EpisodeDetailRoute
+import asgarov.elchin.rickandmortyapp.core.navigation.AppRoute
 import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_list.components.FilterBar
 
 
@@ -53,7 +53,7 @@ fun EpisodeScreen(navController: NavController){
                 }
                 else -> {
                     EpisodeContent(episodes = episodes, onItemClick = { episode->
-                        navController.navigate(EpisodeDetailRoute(episode.id))
+                        navController.navigate(AppRoute.EpisodeDetailRoute(episode.id))
                     })
                 }
             }

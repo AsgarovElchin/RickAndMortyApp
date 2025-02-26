@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import asgarov.elchin.rickandmortyapp.CharacterDetailRoute
+import asgarov.elchin.rickandmortyapp.core.navigation.AppRoute
 import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Character
 
 @Composable
@@ -37,7 +37,7 @@ fun CharacterListDialog(
                 items(characters) { character ->
                     DialogItem(character = character){
                         selectedCharacter ->
-                        navController.navigate(CharacterDetailRoute(selectedCharacter.id))
+                        navController.navigate(AppRoute.CharacterDetailRoute(selectedCharacter.id))
                     }
                 }
             }
