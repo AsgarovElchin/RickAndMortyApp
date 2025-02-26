@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import asgarov.elchin.rickandmortyapp.feature_character.domain.model.Character
+import asgarov.elchin.rickandmortyapp.feature_character.presentation.character_detail.components.StatusIndicator
 import coil3.compose.SubcomposeAsyncImage
 
 @Composable
@@ -65,12 +67,15 @@ fun CharacterDetailContent(
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically){
+                    StatusIndicator(status = character.status)
+                    Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "${character.status} - ${character.species}",
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                    overflow = TextOverflow.Ellipsis)}
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Last known location:",
