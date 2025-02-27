@@ -38,7 +38,13 @@ class EpisodePagingSource(
         } catch (e: IOException) {
             LoadResult.Error(e)
         } catch (e: HttpException) {
-            LoadResult.Error(e)
+            val errorMessage = when (e.code()) {
+                400 -> "Bad request. Please try again."
+                404 -> "There is nothing here."
+                500 -> "Server is currently unavailable. Please try again later."
+                else -> "Unexpected API error."
+            }
+            LoadResult.Error(Exception(errorMessage))
         }
     }
 

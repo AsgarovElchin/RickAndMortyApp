@@ -21,6 +21,7 @@ class CharacterViewModel @Inject constructor(
     private val _filterState = MutableStateFlow(CharacterFilter())
     val filterState = _filterState.asStateFlow()
 
+
     val charactersFlow = _filterState.flatMapLatest {
         filter->
         getCharactersUseCase(filter)

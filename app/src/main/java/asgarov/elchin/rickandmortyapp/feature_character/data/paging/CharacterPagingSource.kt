@@ -25,6 +25,7 @@ class CharacterPagingSource(
                 species = filter.species,
                 gender = filter.gender
             )
+
             Log.d("CharacterPagingSource", "API response for page $page received with ${response.results.size} items, next: ${response.info.next}")
 
             val characters = response.results.map { it.toCharacter() }
@@ -37,10 +38,18 @@ class CharacterPagingSource(
                 prevKey = prevKey,
                 nextKey = nextKey
             )
-        } catch (e: IOException) {
+
+        }
+        catch (e: IOException) {
             LoadResult.Error(e)
         } catch (e: HttpException) {
-            LoadResult.Error(e)
+            val errorMessage = when (e.code()) {
+                400 -> "Bad request. Please try again."
+                404 -> "There is nothing here."
+                500 -> "Server is currently unavailable. Please try again later."
+                else -> "Unexpected API error."
+            }
+            LoadResult.Error(Exception(errorMessage))
         }
     }
 
