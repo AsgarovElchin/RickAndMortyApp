@@ -1,4 +1,4 @@
-package asgarov.elchin.rickandmortyapp.feature_character.data.remote.dto
+package asgarov.elchin.rickandmortyapp.core.data.dto
 
 data class InfoDto(
     val count: Int,

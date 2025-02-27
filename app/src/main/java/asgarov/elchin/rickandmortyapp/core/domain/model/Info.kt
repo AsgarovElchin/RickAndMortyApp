@@ -1,4 +1,4 @@
-package asgarov.elchin.rickandmortyapp.feature_character.domain.model
+package asgarov.elchin.rickandmortyapp.core.domain.model
 
 data class Info(
     val count: Int,
