@@ -2,6 +2,7 @@ package asgarov.elchin.rickandmortyapp.feature_character.presentation.character_
 
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -44,7 +45,8 @@ fun FilterBar(
             label = { Text(labelText) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            maxLines = 1
+            maxLines = 1,
+            shape = RoundedCornerShape(16.dp)
         )
 
         if (onFilterClick != null) {
