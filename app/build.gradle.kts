@@ -102,5 +102,8 @@ dependencies {
     // Paging 3 Support for Jetpack Compose
     implementation(libs.androidx.paging.compose)
 
+    // Splash Screen
+    implementation (libs.androidx.core.splashscreen)
+
 
 }

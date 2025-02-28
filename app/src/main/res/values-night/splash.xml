@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.RickAndMortyApp" parent="android:Theme.Material.Light.NoActionBar" />
-    
     <style name="Theme.SplashScreen.Common." parent="Theme.SplashScreen.IconBackground">
-        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenBackground">#000000</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/rick</item>
-        <item name="windowSplashScreenIconBackgroundColor">#FFFFFF</item>
+        <item name="windowSplashScreenIconBackgroundColor">#000000</item>
         <item name="postSplashScreenTheme">@style/Theme.RickAndMortyApp</item>
     </style>
 </resources>

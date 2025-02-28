@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.1"
+coreSplashscreenVersion = "1.0.1"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -27,6 +28,7 @@ retrofit = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreenVersion" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingRuntimeKtxVersion" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtxVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
